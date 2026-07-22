@@ -7,11 +7,12 @@ const { requireAuth } = require('../middleware/auth');
 const router = express.Router();
 const SALT_ROUNDS = 12;
 
+const isProd = process.env.NODE_ENV === 'production';
 const COOKIE_OPTS = {
   httpOnly: true,
-  sameSite: 'lax',
-  secure: process.env.NODE_ENV === 'production',
-  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  sameSite: isProd ? 'none' : 'lax',
+  secure: isProd,
+  maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 
 function publicUser(u) {

@@ -1,8 +1,10 @@
 // All requests go through Vite's dev proxy (see vite.config.js) to /api/*,
 // which forwards to the Express backend. `credentials: 'include'` sends the
 // httpOnly session cookie set by the backend on login/register.
+const API_BASE = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api';
+
 async function request(path, { method = 'GET', body } = {}) {
-  const res = await fetch(`/api${path}`, {
+  const res = await fetch(`${API_BASE}${path}`, {
     method,
     headers: body ? { 'Content-Type': 'application/json' } : undefined,
     credentials: 'include',
