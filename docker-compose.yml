@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: pierats
+      POSTGRES_PASSWORD: pierats
+      POSTGRES_DB: pierats
+    ports:
+      - "5432:5432"
+    volumes:
+      - pierats-db-data:/var/lib/postgresql/data
+
+volumes:
+  pierats-db-data:
